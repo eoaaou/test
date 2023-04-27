@@ -1,0 +1,34 @@
+ghc:
+  version: 9.2.7
+
+override:
+  - cabal update
+  - cabal sandbox init
+  - cabal install --only-dependencies -j
+  - cabal configure
+
+override:
+  - cabal build
+
+production:
+  branch: hakyll
+  commands:
+    - git config --global user.email circleci@circleci
+    - git config --global user.name CircleCI
+    - cd _site/ && git status
+    - cd _site/ && git add --all
+    - cd _site/ && git commit -m "Update (`date '+%F %T %Z'`) [ci skip]"
+    - cd _site/ && git push origin master
+
+production:
+  branch: hakyll
+  commands:
+    - git config --global user.email circleci@circleci
+    - git config --global user.name CircleCI
+    - cd _site/ && git status
+    - cd _site/ && git add --all
+    - cd _site/ && git commit -m "Update (`date '+%F %T %Z'`) [ci skip]"
+    - cd _site/ && git push origin master
+
+timezone:
+  America/Guayaquil
